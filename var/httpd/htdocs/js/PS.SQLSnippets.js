@@ -20,10 +20,19 @@ PS.SQLSnippets = (function (TargetNS) {
 
     TargetNS.Init = function() {
         $('#SQLSnippets').on('change', function() {
-            let SQLSnippets = Core.Config.Get( SQLSnippets ) || {};
-            let SQLSnippet  = SQLSnippets[ $(this).val() ].SQL;
+            console.debug( "Load SQL snippet" );
+            console.debug( $(this).val() );
+
+            let SQLSnippets    = Core.Config.Get( 'SQLSnippets' ) || {};
+            let SQLSnippetData = SQLSnippets[ $(this).val() ];
+            let SQLSnippet     = SQLSnippetData.SQL;
+            let Name           = SQLSnippetData.SnippetName;
+
+            console.debug( SQLSnippets );
+            console.debug( SQLSnippet );
 
             $('#SQL').val( SQLSnippet );
+            $('#SnippetName').val(Name);
         });
 
         $('#RunSave').on('click', function() {

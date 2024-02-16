@@ -21,6 +21,8 @@ sub Data {
     return if ref $Lang ne 'HASH';
 
     $Lang->{'Run Query and Save'} = 'Anfrage ausführen und speichern';
+    $Lang->{'Save as'} = 'Speichern als';
+    $Lang->{'Delete Snippet'} = 'Snippet löschen';
 
     return 1;
 }

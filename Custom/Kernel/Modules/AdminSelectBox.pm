@@ -34,7 +34,10 @@ sub Run {
 # ---
 # PS
 # ---
-    my $SnippetObject = $Kernel::OM->Get('Kernel::System::SQLSnippet');
+    my $SnippetObject = $Kernel::OM->Get('Kernel::System::SQLSnippets');
+
+    my %Snippets = $SnippetObject->SnippetList();
+    my %Check    = map { $Snippets{$_}->{SnippetName} => $_ } keys %Snippets;
 # ---
     
     # secure mode message (don't allow this action until secure mode is enabled)
@@ -58,25 +61,6 @@ sub Run {
             Name => 'ExplanationAllSqlQueries',
         );
     }
-
-# ---
-# PS
-# ---
-    my %Snippets = $SnippetObject->SnippetsList();
-    my %Check    = map { $Snippets{$_}->{SnippetName} => $_ } keys %Snippets;
-
-    $Param{SnippetList} = $LayoutObject->BuildSelection(
-        Name => 'SQLSnippets',
-        Data => {
-            map { $_ => $Snippets{$_}->{SnippetName} } keys %Snippets
-        },
-
-    $LayoutObject->AddJSData(
-        Key => 'SQLSnippets',
-        Value => \%Snippets,
-    );
-# ---
-
     my $ParamObject = $Kernel::OM->Get('Kernel::System::Web::Request');
 
     # ------------------------------------------------------------ #
@@ -101,7 +85,7 @@ sub Run {
 # ---
 # PS
 # ---
-        if ( $Param{SaveAsSnippet} && $Param{Name} ) {
+        if ( $Param{SaveAsSnippet} && $Param{SnippetName} ) {
 
 
             my $Method = 'SnippetAdd';
@@ -116,6 +100,23 @@ sub Run {
 
             $SnippetObject->$Method(
                 %Param
+            );
+
+            my %Snippets = $SnippetObject->SnippetList();
+            my %Check    = map { $Snippets{$_}->{SnippetName} => $_ } keys %Snippets;
+
+            $Param{SnippetList} = $LayoutObject->BuildSelection(
+                Name => 'SQLSnippets',
+                Data => {
+                    map { $_ => $Snippets{$_}->{SnippetName} } keys %Snippets
+                },
+                Class => 'Modernize',
+                PossibleNone => 1,
+            );
+
+            $LayoutObject->AddJSData(
+                Key => 'SQLSnippets',
+                Value => \%Snippets,
             );
         }
 # ---
@@ -326,6 +327,27 @@ sub Run {
     # print form
     # ------------------------------------------------------------ #
     else {
+
+# ---
+# PS
+# ---
+        my %Snippets = $SnippetObject->SnippetList();
+        my %Check    = map { $Snippets{$_}->{SnippetName} => $_ } keys %Snippets;
+
+        $Param{SnippetList} = $LayoutObject->BuildSelection(
+            Name => 'SQLSnippets',
+            Data => {
+                map { $_ => $Snippets{$_}->{SnippetName} } keys %Snippets
+            },
+            Class => 'Modernize',
+            PossibleNone => 1,
+        );
+
+        $LayoutObject->AddJSData(
+            Key => 'SQLSnippets',
+            Value => \%Snippets,
+        );
+# ---
 
         # get params
         $Param{SQL} = $ParamObject->GetParam( Param => 'SQL' ) || 'SELECT * FROM ';

@@ -168,17 +168,17 @@ sub SnippetDelete {
     my $DBObject  = $Kernel::OM->Get('Kernel::System::DB');
 
     # check needed stuff
-    if ( !$Param{ID} ) {
+    if ( !$Param{SnippetID} ) {
         $LogObject->Log(
             Priority => 'error',
-            Message  => 'Need ID!',
+            Message  => 'Need SnippetID!',
         );
         return;
     }
 
     return $DBObject->Do(
         SQL  => 'DELETE FROM ps_sqlsnippets WHERE id = ?',
-        Bind => [ \$Param{ID} ],
+        Bind => [ \$Param{SnippetID} ],
     );
 }
 

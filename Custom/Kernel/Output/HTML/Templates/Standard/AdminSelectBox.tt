@@ -27,10 +27,7 @@
                 <h2>[% Translate("Snippets") | html %]</h2>
             </div>
             <div class="Content">
-                <p class="FieldExplanation">
-                    [% Translate("Here you can enter SQL to send it directly to the application database. It is not possible to change the content of the tables, only select queries are allowed.") | html %]
-                </p>
-                [% Data.SQLSnippets %]
+                [% Data.SnippetList %]
             </div>
         </div>
 # ---
@@ -121,7 +118,7 @@
                         <div class="field-wrapper">
                             <label for="SnippetName">[% Translate("Save as") | html %]</label>
                             <div class="Field">
-                                <input type="text" name="SnippetName" value="[% Data.SnippetName | html %]" class="W75px" />
+                                <input type="text" id="SnippetName"  name="SnippetName" value="[% Data.SnippetName | html %]" class="W75px" />
                                 <input type="hidden" id="SaveAsSnippet" name="SaveAsSnippet" value="0" />
                             </div>
                         </div>
@@ -136,14 +133,12 @@
                         <div class="field-wrapper form-button-actions">
                             <div class="Field buttons-field">
                                 <button class="Primary CallForAction btn-main btn-primary btn-width-md" type="submit" id="Run" value="[% Translate("Run Query") | html %]"><span>[% Translate("Run Query") | html %]</span></button>
-                            </div>
 # ---
 # PS
 # ---
-                            <div class="Field buttons-field">
                                 <button class="Primary CallForAction btn-main btn-primary btn-width-md" type="submit" id="RunSave" value="[% Translate("Run Query and Save") | html %]"><span>[% Translate("Run Query and Save") | html %]</span></button>
-                            </div>
 # ---
+                            </div>
                         </div>
                     </fieldset>
                 </form>

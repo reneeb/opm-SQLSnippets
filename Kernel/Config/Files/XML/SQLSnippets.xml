@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<otobo_config version="2.0" init="Config">
+<otrs_config version="2.0" init="Config">
     <Setting Name="Loader::Module::AdminSelectBox###027-SQLSnippets" Required="1" Valid="1">
         <Description Translatable="1">List of JavaScript files to be loaded for the SQL box.</Description>
         <Navigation>Frontend::Agent::ModuleRegistration</Navigation>
         <Value>
-            <Array>
-                <Item>PS.SQLSnippets.js</Item>
-            </Array>
+            <Hash>
+                <Item Key="JavaScript">
+                    <Array>
+                        <Item>PS.SQLSnippets.js</Item>
+                    </Array>
+                </Item>
+            </Hash>
         </Value>
     </Setting>
-</otobo_config>
+</otrs_config>
