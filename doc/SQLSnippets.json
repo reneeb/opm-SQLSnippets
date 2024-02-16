@@ -1,0 +1,40 @@
+{
+    "name": "SQLSnippets",
+    "version": "6.0.1",
+    "framework": [
+        "6.0.x",
+        "6.1.x",
+        "6.2.x",
+        "6.3.x",
+        "6.4.x",
+        "6.5.x"
+    ],
+    "vendor": {
+        "name":  "Perl-Services.de",
+        "url": "https://perl-services.de"
+    },
+    "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007",
+    "description" : {
+        "en": "Add snippets feature to SQL box",
+        "de": "Fügt ein Snippets-Feature zur SQL-Box hinzu"
+    },
+    "database" : [
+        {
+            "type": "TableCreate",
+            "version": 0,
+            "name": "ps_sqlsnippets",
+            "columns": [
+                { "name": "id", "required": "true", "auto_increment": "true", "type": "INTEGER", "primary_key": "true" },
+                { "name": "name", "required": "true", "type": "VARCHAR","size": 255 },
+                { "name": "snippet", "required": "true", "type": "VARCHAR", "size": 5000 }
+            ]
+        }
+    ],
+    "code" : [
+        { "type" : "Install" },
+        { "type" : "Upgrade" }
+    ],
+    "exclude_files": [
+        "doc/SQLSnippets.json"
+    ]
+}
