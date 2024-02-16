@@ -7,8 +7,20 @@
 # did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
-<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst ActionsSideBar AdminManagement">
-    <div class="SidebarColumn ActionsSideBarComp">
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1 class="InvisibleText">[% Translate("SQL Box") | html %]</h1>
+
+    [% BreadcrumbPath = [
+            {
+                Name => Translate('SQL Box'),
+                Link => Env("Action"),
+            },
+        ]
+    %]
+
+    [% INCLUDE "Breadcrumb.tt" Path = BreadcrumbPath %]
+
+    <div class="SidebarColumn">
 [% RenderBlockStart("ResultFilter") %]
         <div class="WidgetSimple">
             <div class="Header">
@@ -49,19 +61,8 @@
             </div>
         </div>
     </div>
+
     <div class="ContentColumn">
-        <h1 class="InvisibleText">[% Translate("SQL Box") | html %]</h1>
-
-        [% BreadcrumbPath = [
-                {
-                    Name => Translate('SQL Box'),
-                    Link => Env("Action"),
-                },
-            ]
-        %]
-
-        [% INCLUDE "Breadcrumb.tt" Path = BreadcrumbPath %]
-
         <div class="WidgetSimple">
             <div class="Header">
                 <h2>[% Translate("Options") | html %]</h2>
@@ -71,15 +72,14 @@
                 <form action="[% Env("CGIHandle") %]" method="post" class="Validate" id="AdminSelectBoxForm">
                     <input type="hidden" name="Action" value="[% Env("Action") %]"/>
                     <input type="hidden" name="Subaction" value="Select"/>
-                    <fieldset class="TableLike FixedLabelSmall no-padding">
+                    <fieldset class="TableLike FixedLabelSmall">
 
-                        <div class="field-wrapper">
-                            <label class="Mandatory" for="SQL"><span class="Marker">*</span> [% Translate("SQL") | html %]</label>
-                            <div class="Field">
-                                <textarea name="SQL" id="SQL" rows="3" class="W100pc Validate_Required [% Data.SQLInvalid | html %]">[% Data.SQL | html %]</textarea>
-                                <div id="SQLError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
-                                <div id="SQLServerError" class="TooltipErrorMessage">
-                                    <p>
+                        <label class="Mandatory" for="SQL"><span class="Marker">*</span> [% Translate("SQL") | html %]:</label>
+                        <div class="Field">
+                            <textarea name="SQL" id="SQL" rows="3" class="W100pc Validate_Required [% Data.SQLInvalid | html %]">[% Data.SQL | html %]</textarea>
+                            <div id="SQLError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="SQLServerError" class="TooltipErrorMessage">
+                                <p>
 [% RenderBlockStart("FieldRequiredServerError") %]
                                     [% Translate("This field is required.") | html %]
 [% RenderBlockEnd("FieldRequiredServerError") %]
@@ -93,57 +93,53 @@
                                     [% Translate("There is at least one parameter missing for the binding. Please check it.") | html %]
 [% RenderBlockEnd("BindParamServerError") %]
 
-                                    </p>
-                                </div>
+                                </p>
                             </div>
                         </div>
+                        <div class="Clear"></div>
 
-                        <div class="field-wrapper">
-                            <label for="Max">[% Translate("Limit") | html %]</label>
-                            <div class="Field">
-                                <input type="text" name="Max" id="Max" value="[% Data.Max | html %]" class="W50px" />
-                            </div>
+                        <label for="Max">[% Translate("Limit") | html %]:</label>
+                        <div class="Field">
+                            <input type="text" name="Max" id="Max" value="[% Data.Max | html %]" class="W50px" />
                         </div>
+                        <div class="Clear"></div>
 
-                        <div class="field-wrapper">
-                            <label for="ResultFormat">[% Translate("Result format") | html %]</label>
-                            <div class="Field">
-                                [% Data.ResultFormatStrg %]
-                            </div>
+                        <label for="ResultFormat">[% Translate("Result format") | html %]:</label>
+                        <div class="Field">
+                            [% Data.ResultFormatStrg %]
                         </div>
+                        <div class="Clear"></div>
 
 # ---
 # PS
 # ---
-                        <div class="field-wrapper">
-                            <label for="SnippetName">[% Translate("Save as") | html %]</label>
-                            <div class="Field">
-                                <input type="text" id="SnippetName"  name="SnippetName" value="[% Data.SnippetName | html %]" class="W75px" />
-                                <input type="hidden" id="SaveAsSnippet" name="SaveAsSnippet" value="0" />
-                            </div>
+                        <label for="SnippetName">[% Translate("Save as") | html %]</label>
+                        <div class="Field">
+                            <input type="text" id="SnippetName"  name="SnippetName" value="[% Data.SnippetName | html %]" class="W75px" />
+                            <input type="hidden" id="SaveAsSnippet" name="SaveAsSnippet" value="0" />
                         </div>
-                        <div class="field-wrapper">
-                            <label for="DeleteSnippet">[% Translate("Delete Snippet") | html %]</label>
-                            <div class="Field">
-                                <input type="checkbox" name="DeleteSnippet" value="1" />
-                            </div>
+                        <div class="Clear"></div>
+
+                        <label for="DeleteSnippet">[% Translate("Delete Snippet") | html %]</label>
+                        <div class="Field">
+                            <input type="checkbox" name="DeleteSnippet" value="1" />
                         </div>
+                        <div class="Clear"></div>
 # ---
 
-                        <div class="field-wrapper form-button-actions">
-                            <div class="Field buttons-field">
-                                <button class="Primary CallForAction btn-main btn-primary btn-width-md" type="submit" id="Run" value="[% Translate("Run Query") | html %]"><span>[% Translate("Run Query") | html %]</span></button>
+                        <div class="Field SpacingTop">
+                            <button class="Primary CallForAction" type="submit" id="Run" value="[% Translate("Run Query") | html %]"><span>[% Translate("Run Query") | html %]</span></button>
 # ---
 # PS
 # ---
-                                <button class="Primary CallForAction btn-main btn-primary btn-width-md" type="submit" id="RunSave" value="[% Translate("Run Query and Save") | html %]"><span>[% Translate("Run Query and Save") | html %]</span></button>
+                            <button class="Primary CallForAction btn-main btn-primary btn-width-md" type="submit" id="RunSave" value="[% Translate("Run Query and Save") | html %]"><span>[% Translate("Run Query and Save") | html %]</span></button>
 # ---
-                            </div>
                         </div>
                     </fieldset>
                 </form>
             </div>
         </div>
+
 [% RenderBlockStart("Result") %]
         <div class="WidgetSimple">
             <div class="Header">
@@ -181,5 +177,5 @@
         </div>
 [% RenderBlockEnd("Result") %]
     </div>
-
+    <div class="Clear"></div>
 </div>
